@@ -4,6 +4,17 @@
     <head>
         <title></title>
         <script type="text/javascript">
+        window.onload = function() {
+            var terminal = document.getElementById("terminal"); 
+            var print = function() {
+                terminal.innerHTML += Math.random() > 0.5 ? "/" : "\\";
+                if (terminal.innerHTML.length >= 1000) {
+                    terminal.innerHTML = terminal.innerHTML.slice(40);
+                }
+            }
+            var timer = setInterval(print, 15);
+        }
+
         </script>
         <style>
 
@@ -12,17 +23,28 @@
             src: url(fonts/C64_User_v1.0-STYLE.ttf)
         }
 
+        body {
+            background-color: rgb(129, 113, 167);
+        }
+
         div {
+            background-color: rgb(76, 54, 167);
+            color: rgb(129, 113, 167);
             font-style: normal;
             font-size:  18pt;
-            line-height: 24px;
+            line-height: 18px;
+            letter-spacing: -5px;
+            height: 450px;
+            margin: 0 auto;
             font-family: "C64 User";
+            overflow-wrap: break-word;
+            width: 760px;
         }
 
         </style>
     </head>
     <body>
-        <div id="console">
+        <div id="terminal">
         </div>
     </body>
 </html>
