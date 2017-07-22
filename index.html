@@ -6,11 +6,33 @@
         <script type="text/javascript">
         window.onload = function() {
             var terminal = document.getElementById("terminal"); 
+            var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            var buff = audioCtx.createBuffer(1, 150, 10000);
+
             var print = function() {
-                terminal.innerHTML += Math.random() > 0.5 ? "/" : "\\";
+                var sign = Math.random() > 0.5 ? "/" : "\\";
+                terminal.innerHTML += sign;
+
                 if (terminal.innerHTML.length >= 1000) {
                     terminal.innerHTML = terminal.innerHTML.slice(40);
                 }
+
+
+                var buffing = buff.getChannelData(0);
+                if ( sign === "/") {
+                    for (var i = 0; i < 150; i++) {
+                        buffing[i] = (Math.floor(i/25)/6) - 0.4;
+                    }
+                } else {
+                    for (var i = 0; i < 150; i++) {
+                        buffing[i] = 0.4 - (Math.floor(i/25)/6);
+                    }
+                }
+
+                var source = audioCtx.createBufferSource();
+                source.buffer = buff;
+                source.connect(audioCtx.destination);
+                source.start();
             }
             var timer = setInterval(print, 15);
         }
@@ -18,7 +40,7 @@
         </script>
         <style>
 
-        @font-face {       
+        @font-face {
             font-family: "C64 User";
             src: url(fonts/C64_User_v1.0-STYLE.ttf)
         }
