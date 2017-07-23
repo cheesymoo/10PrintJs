@@ -2,7 +2,7 @@
 
 <html lang="en">
     <head>
-        <title></title>
+        <title>10 Print Chr$</title>
         <script type="text/javascript">
         window.onload = function() {
             var terminal = document.getElementById("terminal"); 
@@ -27,15 +27,21 @@
 
                 if ( sign === "/") {
                     for (var i = 1; i < 7; i++) {
-                        osc.frequency.value = ((i/6)*fund) + 6;
+                        window.setTimeout(stepUp(), 2.5*i);
                     }
                 } else {
                     for (var i = 1; i < 7; i++) {
-                        console.log(fund/(i/6));
-                        osc.frequency.value = (fund/(i/6)) + 6;
+                        window.setTimeout(stepDown(), 2.5*i);
                     }
                 }
 
+            }
+
+            var stepUp = function() {
+                osc.frequency.value += (1/6)*fund;
+            }
+            var stepDown = function() {
+                osc.frequency.value -= (1/6)*fund;
             }
             var timer = setInterval(print, 15);
         }
@@ -45,7 +51,7 @@
 
         @font-face {
             font-family: "C64 User";
-            src: url(fonts/C64_User_v1.0-STYLE.ttf)
+            src: url(fonts/C64_User_v1.0-STYLE.ttf);
         }
 
         body {
